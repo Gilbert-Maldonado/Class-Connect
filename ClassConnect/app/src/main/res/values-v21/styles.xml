@@ -2,4 +2,6 @@
 <resources>
     <style name="AppTheme" parent="android:Theme.Material.Light">
     </style>
+    <style name="AppThemeLogin" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
+    </style>
 </resources>
