@@ -8,8 +8,11 @@
     <string name="facebook_app_id">1666300650287898</string>
 
     <string name="title_activity_class_enter">ClassEnterActivity</string>
+    <string name="instructions">Start by adding a class</string>
+    <string name="courses">Add Courses</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="action_done">Done</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

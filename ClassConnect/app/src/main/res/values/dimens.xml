@@ -6,4 +6,5 @@
     <dimen name="fb_button_padding">14dp</dimen>
     <dimen name="login_title_bottom_margin">40dp</dimen>
     <dimen name="login_title_top_margin">60dp</dimen>
+    <dimen name="item_height">75dp</dimen>
 </resources>

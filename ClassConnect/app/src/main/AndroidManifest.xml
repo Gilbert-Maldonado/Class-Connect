@@ -44,7 +44,8 @@
         <activity
             android:name=".ClassEnterActivity"
             android:label="@string/title_activity_class_enter"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeCompact">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.classconnect.classconnect.MainActivity" />

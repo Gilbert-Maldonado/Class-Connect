@@ -36,7 +36,31 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public boolean addItem(String s) {
         mItemList.add(s);
-        notifyItemChanged(mItemList.size()-1);
+        notifyItemInserted(mItemList.size()-1);
         return true;
     }
+
+    public boolean addItem(int pos, String s) {
+        mItemList.add(pos, s);
+        notifyItemInserted(pos);
+        return true;
+    }
+
+    public int removeItem(String s){
+        int pos = mItemList.indexOf(s);
+        return removeItem(pos);
+    }
+    public int removeItem(int pos) {
+        if (pos < 0 || pos >= mItemList.size())
+            return pos;
+        mItemList.remove(pos);
+        notifyItemRemoved(pos);
+        return pos;
+    }
+
+    public String[] getFinalData(){
+        String[] finalItems = new String[mItemList.size()];
+        return mItemList.toArray(finalItems);
+    }
 }
+
