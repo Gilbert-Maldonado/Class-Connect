@@ -5,25 +5,20 @@ import java.util.List;
 /**
  * Created by Gilbert on 1/16/2016.
  */
-public class Student {
+public class Student
+{
 
     private String name;
     private String facebookID;
     private List<String> classes;
     private List<String> friendsList;
 
-    public Student(String facebookID, String name, List<String> classes, List<String> friendsList) {
+    public Student(String facebookID, String name, List<String> classes, List<String> friendsList)
+    {
         this.facebookID = facebookID;
         this.name = name;
         this.classes = classes;
         this.friendsList = friendsList;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public List<String> getClasses() {
-        return classes;
-    }
 }
