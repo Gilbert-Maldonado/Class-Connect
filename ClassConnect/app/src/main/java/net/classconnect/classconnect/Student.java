@@ -1,6 +1,7 @@
 package net.classconnect.classconnect;
 
 import java.util.List;
+import com.parse.ParseObject;
 
 /**
  * Created by Gilbert on 1/16/2016.
