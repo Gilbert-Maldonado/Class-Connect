@@ -33,4 +33,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemCount() {
         return mItemList == null ? 0 : mItemList.size();
     }
+
+    public boolean addItem(String s) {
+        mItemList.add(s);
+        notifyItemChanged(mItemList.size()-1);
+        return true;
+    }
 }
