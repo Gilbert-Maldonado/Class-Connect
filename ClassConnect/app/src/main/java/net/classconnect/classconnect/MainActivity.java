@@ -36,21 +36,21 @@ public class MainActivity extends Activity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Logs 'install' and 'app activate' App Events.
-        AppEventsLogger.activateApp(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        // Logs 'app deactivate' App Event.
-        AppEventsLogger.deactivateApp(this);
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        // Logs 'install' and 'app activate' App Events.
+//        AppEventsLogger.activateApp(this);
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//
+//        // Logs 'app deactivate' App Event.
+//        AppEventsLogger.deactivateApp(this);
+//    }
     public static String printKeyHash(Activity context) {
         PackageInfo packageInfo;
         String key = null;
