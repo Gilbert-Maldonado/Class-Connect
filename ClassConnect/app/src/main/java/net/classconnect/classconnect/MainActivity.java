@@ -18,6 +18,10 @@ import com.facebook.login.widget.LoginButton;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class MainActivity extends Activity {
 
@@ -32,6 +36,12 @@ public class MainActivity extends Activity {
         loginButton.setReadPermissions("user_friends");
         callbackManager = CallbackManager.Factory.create();
         Parse.initialize(this);
+        List<String> classes = new ArrayList<String>();
+        classes.addAll(Arrays.asList("Vishik The Devil", "Mike Scott"));
+        List<String> friends = new ArrayList<String>();
+        friends.addAll(Arrays.asList("cindy", "yimmie"));
+        Student gilly = new Student("hello", "gilly", classes, friends);
+        gilly.parse();
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
