@@ -5,19 +5,53 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/collaborate"
     tools:context="net.classconnect.classconnect.MainActivity">
 
-    <TextView android:text="@string/hello_world"
-        android:id="@+id/text"
+    <TextView
+        android:id="@+id/appTitle"
+        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:text="@string/app_name"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold"
+        android:textSize="60sp"
+        android:textColor="@color/material_grey_50"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/login_title_bottom_margin"
+        android:layout_marginTop="@dimen/login_title_top_margin"
+        android:elevation="4dp"
+        android:shadowDy="-10"/>
+
+    <TextView
+        android:layout_below="@+id/appTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="40dp"
+        android:text="@string/slogan"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/material_grey_50"
+        android:textSize="24sp"
+        android:shadowDy="-4"/>
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:fontFamily="sans-serif-light"
+        android:textStyle="normal"
+        android:textSize="16sp"
+        android:paddingTop="@dimen/fb_button_padding"
+        android:paddingBottom="@dimen/fb_button_padding"
+        android:paddingLeft="@dimen/fb_button_padding"
+        android:paddingRight="@dimen/fb_button_padding"
+        android:layout_marginTop="@dimen/fb_button_vertical_margin"
+        android:elevation="4dp"/>
 
 </RelativeLayout>
