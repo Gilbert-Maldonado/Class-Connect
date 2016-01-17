@@ -19,12 +19,16 @@ public class MasterClass {
     private List<String> friendsList;
     private List<String> courses;
     private List<String> coursesPlaced;
+    private int counter;
+    private String currentFriend;
 
     public MasterClass(String facebookID, String name, List<String> friendsList, List<String> courses) {
         this.facebookID = facebookID;
         this.name = name;
         this.friendsList = friendsList;
         this.courses = courses;
+        counter = 0;
+        currentFriend = null;
         for(String current : courses) {
             coursesPlaced.add(current);
         }
@@ -36,7 +40,7 @@ public class MasterClass {
 
         while(coursesPlaced.size() > 0 && i < friendsList.size()) {
 
-            String currentFriend = friendsList.get(i);
+            currentFriend = friendsList.get(i);
 
             ParseQuery<ParseObject> currentQuery = ParseQuery.getQuery("Student");
             currentQuery.whereEqualTo("name", currentFriend);
@@ -53,10 +57,31 @@ public class MasterClass {
                             // Check if the String that is in common is in coursesPlaced (Purpose to avoid repetition)
                             if (coursesPlaced.contains(currentValue)) {
                                 // Add myself into that class
+                                ParseQuery<ParseObject> querryToAdd = ParseQuery.getQuery("Classes");
+                                querryToAdd.whereEqualTo("courseName", currentValue);
+                                querryToAdd.getFirstInBackground(new GetCallback<ParseObject>() {
+                                    public void done(ParseObject object2, ParseException e2) {
+                                        if (e2 == null) {
+                                            counter = 0;
+                                            boolean isUpdated = false;
 
+                                            while (!isUpdated) {
+                                                String currentCourseGroup = "" + counter;
+                                                List<String> temp = object2.getList(currentCourseGroup);
+                                                if (temp.contains(currentFriend)) {
+                                                    temp.add(name);
+                                                    isUpdated = true;
+                                                }
+                                                counter++;
+                                                object2.addAllUnique(currentCourseGroup, temp);
+                                            }
+                                        } else {
+                                            //Exception that we are not going to throw lol
+                                        }
+                                    }
+                                });
                                 // Then remove from list
                                 coursesPlaced.remove(currentValue);
-
                             }
                         }
 
@@ -71,10 +96,14 @@ public class MasterClass {
             i++;
         }
 
-        // If counter != coursesPlaced, iterate through coursesPlaced array and create groups with the original student in them
+        // Create the class and add the group or just add the group
+        // If the size is greater than 0, iterate through coursesPlaced list and create groups with the original student in them
         if(coursesPlaced.size() > 0) {
-            for(i = 0; i < coursesPlaced.length; i++) {
+            for(i = 0; i < coursesPlaced.size(); i++) {
                 // Then create a new group!
+                ParseObject object = new ParseObject("Classes");
+                
+                currentQuery.whereEqualTo("name", currentFriend);
 
             }
         }
