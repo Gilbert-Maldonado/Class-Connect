@@ -40,5 +40,19 @@ public class Student
         studentObj.saveInBackground();
     }
 
+    //Returns friends list for simpler processing
+    public List<String> returnFriends()
+    {
+        return friendsList;
+    }
+
+    //Returns the class list for simpler processing
+    public List<String> returnClasses()
+    {
+        return classes;
+    }
+
+
+
 
 }

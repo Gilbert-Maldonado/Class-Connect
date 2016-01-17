@@ -37,6 +37,31 @@ public class MainActivity extends Activity {
         callbackManager = CallbackManager.Factory.create();
         Parse.initialize(this);
 
+        //TESTING CODE DELETE WHEN DONE
+        List<String> friends1 = new ArrayList<String>();
+        List<String> friends2 = new ArrayList<String>();
+        friends1.add("Joe");
+        friends2.add("Bob");
+        String name1 = "Bob";
+        String name2 = "Joe";
+        String ID1 = "B1";
+        String ID2 = "J2";
+        List<String> classes1 = new ArrayList<String>();
+        List<String> classes2 = new ArrayList<String>();
+        classes1.add("CS314");
+        classes1.add("CS312");
+        classes1.add("CS311");
+        classes1.add("HIS355");
+        classes2.add("CS314");
+        classes2.add("CS312");
+        classes2.add("CS311");
+        Student s1 = new Student(ID1, name1, classes1, friends1);
+        Student s2 = new Student(ID2, name2, classes2, friends2);
+        Processing p1 = new Processing(name1, s1);
+        p1.setFriends();
+        p1.getMatches();
+        //TESTING CODE ENDS HERE
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
