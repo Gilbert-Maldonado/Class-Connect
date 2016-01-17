@@ -36,6 +36,7 @@ public class Processing
         friends = curObject.returnFriends();
     }
 
+    // Takes one friend and gets the course matches of each of that person's friends List
     public void getMatches()
     {
         for(int i = 0; i < friends.size(); i++)
