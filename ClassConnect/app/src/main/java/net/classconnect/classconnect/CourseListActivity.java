@@ -41,9 +41,9 @@ public class CourseListActivity extends AppCompatActivity  {
         createAppGroupDialog.registerCallback(callbackManager, new FacebookCallback<CreateAppGroupDialog.Result>() {
             public void onSuccess(CreateAppGroupDialog.Result result) {
                 String id = result.getId();
-                if(mGroupname != null)
-                    MasterClass.addGroupID(name, mGroupname, id);
-                mGroupname = null;
+//                if(mGroupname != null)
+//                    MasterClass.addGroupID(name, mGroupname, id);
+//                mGroupname = null;
             }
 
             public void onCancel() {
