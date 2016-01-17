@@ -4,10 +4,10 @@
         <item name="android:colorAccent">#283593</item>
     </style>
     <style name="AppThemeLogin" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
-
+        <item name="android:colorAccent">#283593</item>
     </style>
     <style name="AppThemeCompact" parent="Theme.AppCompat.Light.NoActionBar">
-
+        <item name="android:colorAccent">#283593</item>
     </style>
 </resources>
 
