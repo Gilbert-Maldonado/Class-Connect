@@ -52,7 +52,7 @@ public class MasterClass {
 
                         if(currentList.size() != 0) {
                             counter += currentList.size();
-                            
+
                         }
                     }
                     else
