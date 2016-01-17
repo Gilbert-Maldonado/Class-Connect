@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
@@ -34,8 +36,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("user_friends");
+        loginButton.setReadPermissions("user_managed_groups");
         callbackManager = CallbackManager.Factory.create();
         Parse.initialize(this);
+
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override

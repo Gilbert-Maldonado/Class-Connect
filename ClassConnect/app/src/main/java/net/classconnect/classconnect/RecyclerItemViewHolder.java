@@ -3,13 +3,17 @@ package net.classconnect.classconnect;
 /**
  * Created by Cindy on 1/16/2016.
  */
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-public class RecyclerItemViewHolder extends RecyclerView.ViewHolder {
+import co.dift.ui.SwipeToAction;
+
+public class RecyclerItemViewHolder extends  SwipeToAction.ViewHolder<String> {
 
     private final TextView mItemTextView;
+    public String data;
+
+
 
     public RecyclerItemViewHolder(final View parent, TextView itemTextView) {
         super(parent);
@@ -22,7 +26,12 @@ public class RecyclerItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setItemText(CharSequence text) {
+        data = text.toString();
         mItemTextView.setText(text);
+    }
+
+    public String getItemData(){
+        return data;
     }
 
 }

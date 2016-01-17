@@ -1,11 +1,14 @@
 package net.classconnect.classconnect;
 
+import android.util.Log;
+
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +19,8 @@ import java.util.TreeMap;
  */
 public class MasterClass {
 
+
+
     private String facebookID;
     private String name;
     private List<String> friendsList;
@@ -24,11 +29,13 @@ public class MasterClass {
     private int counter;
     private String currentFriend;
     private String temp15;
+    private Map<String, List<String>> courseAttendeesMap;
     private Map<String, Boolean> map;
     private String addToGroupName;
     private String addToGroupID;
     private String getGroupIDName;
     private String getGroupIDOutput;
+    private static String IDOutput;
 
     public MasterClass(String facebookID, String name, List<String> friendsList, List<String> courses) {
         this.facebookID = facebookID;
@@ -40,12 +47,17 @@ public class MasterClass {
         getGroupIDName = null;
         currentFriend = null;
         temp15 = null;
+        IDOutput = null;
+
+        courseAttendeesMap = new TreeMap<String, List<String>>();
         addToGroupName = null;
         addToGroupID = null;
         map = new TreeMap<String, Boolean>();
         for(String temp : courses) {
-            map.put(temp, false);
+            map.put(temp, true);
+            courseAttendeesMap.put(temp, null);
         }
+        coursesPlaced = new ArrayList<>();
         for(String current : courses) {
             coursesPlaced.add(current);
         }
@@ -70,7 +82,7 @@ public class MasterClass {
                         // Classes that we share, add myself to that friend's classes
 
                         for (int j = 0; j < currentList.size(); j++) {
-                            String currentValue = currentList.get(j);
+                            final String currentValue = currentList.get(j);
                             // Check if the String that is in common is in coursesPlaced (Purpose to avoid repetition)
                             if (coursesPlaced.contains(currentValue)) {
                                 // Add myself into that class
@@ -83,9 +95,11 @@ public class MasterClass {
                                             boolean isUpdated = false;
 
                                             while (!isUpdated) {
-                                                String currentCourseGroup = "" + counter;
+                                                String currentCourseGroup = "L" + counter;
                                                 List<String> temp = object2.getList(currentCourseGroup);
                                                 if (temp.contains(currentFriend)) {
+                                                    courseAttendeesMap.put(currentValue, new ArrayList<String>(temp));
+                                                    map.put(currentValue, false);
                                                     temp.add(name);
                                                     isUpdated = true;
                                                 }
@@ -102,8 +116,8 @@ public class MasterClass {
                                 coursesPlaced.remove(currentValue);
                             }
                         }
-
                     } else {
+
                         //Display that the user does not having matching friends/classes
                         //Do not throw exception or else stack will terminate/App crash
                     }
@@ -125,43 +139,74 @@ public class MasterClass {
                 currentQuery.getFirstInBackground(new GetCallback<ParseObject>() {
                     public void done(ParseObject object, ParseException e) {
                         // If e == null then it exists and we just add a group
-                        if(e == null) {
+                        if (e == null) {
+                            courseAttendeesMap.put(temp15, new ArrayList<String>());
+                            Log.e("MAP - ERROR", "omg i dont even know");
                             int current = object.getInt("counter");
                             List<String> list = new ArrayList<String>();
                             list.add(name);
-                            object.add("" + current, list);
+                            object.add("L" + current, list);
                             current++;
                             object.put("counter", current);
-                            object.saveInBackground();
+                            try {
+                                object.save();
+                            } catch (ParseException a) {
+                                a.printStackTrace();
+                            }
+                            map.put(temp15, true);
 
-                        }
-                        else { // Else then we create a class/with counter and then add the group
+                        } else { // Else then we create a class/with counter and then add the group
+                            courseAttendeesMap.put(temp15, new ArrayList<String>());
+                            map.put(temp15, true);
+                            Log.e("MAP - ERROR2 help help", "omg i dont even know" + temp15);
                             ParseObject newClass = new ParseObject("Classes");
-                            newClass.put("courseName", temp15);
+                            newClass.put("courseName", new String(temp15));
                             List<String> temp = new ArrayList<String>();
                             temp.add(name);
-                            newClass.addAllUnique("0", temp);
+                            newClass.addAllUnique("L0", temp);
                             newClass.put("counter", 1);
-                            newClass.saveInBackground();
-                            map.put(temp15, true);
+                            try {
+                                newClass.save();
+                            } catch (ParseException a) {
+                                a.printStackTrace();
+                            }
+                            Log.e("MAP - ERROR!!!!!", "omg i dont even know");
+                            courseAttendeesMap.put(temp15, new ArrayList<String>());
                         }
                     }
 
                 });
             }
         }
+        CourseListActivity.LcourseAttendeesMap = this.courseAttendeesMap;
+        CourseListActivity.Lmap = this.map;
+    }
+
+    public Map<String, List<String>> getCourseAttendeesMap() {
+        CourseListActivity.LcourseAttendeesMap = this.courseAttendeesMap;
+        Log.d("MAP1", courseAttendeesMap.toString());
+        return courseAttendeesMap;
     }
 
     public Map<String, Boolean> getMap() {
+        CourseListActivity.Lmap = this.map;
+        Log.d("MAP1", map.toString());
         return map;
+    }
+
+
+    public String getFacebookID() {
+        return facebookID;
+    }
+
+    public String getName() {
+        return name;
     }
 
     // Input: Name of person, course name, groupID
     // Output: Find the group by person name and course name and add the ID to it.
-    public void addGroupID(String name, String courseName, String groupID) {
+    public static void addGroupID(final String name, final String courseName, final String groupID) {
 
-        addToGroupName = name;
-        addToGroupID = groupID;
         ParseQuery<ParseObject> currentQuery = ParseQuery.getQuery("Classes");
         currentQuery.whereEqualTo("courseName", courseName);
         currentQuery.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -170,9 +215,9 @@ public class MasterClass {
                 int count = 0;
 
                 while(!found) {
-                    List<String> temp = object.getList("" + count);
-                    if(temp.contains(addToGroupName)) {
-                        object.put("group" + count, addToGroupID);
+                    List<String> temp = object.getList("L" + count);
+                    if(temp.contains(name)) {
+                        object.put("group" + count, groupID);
                         object.saveInBackground();
                         found = true;
                     }
@@ -186,11 +231,8 @@ public class MasterClass {
 
     // Input: CourseName, Student name
     // Output: GroupID
-    public String getGroupID(String courseName, String name) {
+    public static String getGroupID(final String courseName, final String name) {
 
-        getGroupIDName = name;
-        String output = null;
-        getGroupIDOutput = null;
         ParseQuery<ParseObject> currentQuery = ParseQuery.getQuery("Classes");
         currentQuery.whereEqualTo("courseName", courseName);
         currentQuery.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -200,17 +242,20 @@ public class MasterClass {
                 int count = 0;
 
                 while(!found) {
-                    List<String> temp = object.getList("" + count);
-                    if(temp.contains(getGroupIDName)) {
-                        getGroupIDOutput = object.getString("group" + count);
+                    List<String> temp = object.getList("L" + count);
+                    if(temp.contains(name)) {
+                        IDOutput = object.getString("group" + count);
                         found = true;
                     }
                     count++;
                 }
             }
         });
-        return getGroupIDOutput;
+        return IDOutput;
     }
 
 
 }
+
+
+
