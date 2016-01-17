@@ -127,7 +127,7 @@ public class MasterClass {
                             temp.add(name);
                             newClass.addAllUnique("0", temp);
                             newClass.put("counter", 1);
-
+                            newClass.saveInBackground();
                         }
                     }
 
