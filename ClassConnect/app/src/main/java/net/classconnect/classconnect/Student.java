@@ -18,21 +18,41 @@ public class Student
     //Default constructor to implement all variables
     public Student(String facebookID, String name, List<String> classes, List<String> friendsList)
     {
+        if(facebookID == null || name == null || classes == null || classes.size() == 0 || friendsList == null
+                || friendsList.size() == 0) {
+            throw new IllegalArgumentException("ERROR: Invalid parameters in Student class Constructor");
+        }
         this.facebookID = facebookID;
         this.name = name;
         this.classes = classes;
         this.friendsList = friendsList;
+        addToParse();
     }
 
     //Uploads data to parse server as student object
-    public void parse()
+    private void addToParse()
     {
-        ParseObject studentObj = new ParseObject(name);
-        studentObj.put("ID: ", facebookID);
-        studentObj.put("Classes: ", classes);
-        studentObj.put("Friends: ", friendsList);
+        ParseObject studentObj = new ParseObject("Student");
+        studentObj.put("name", name);
+        studentObj.put("facebookID", facebookID);
+        studentObj.addAllUnique("courses", classes);
+        studentObj.addAllUnique("friendsList", friendsList);
         studentObj.saveInBackground();
     }
+
+    //Returns friends list for simpler processing
+    public List<String> returnFriends()
+    {
+        return friendsList;
+    }
+
+    //Returns the class list for simpler processing
+    public List<String> returnClasses()
+    {
+        return classes;
+    }
+
+
 
 
 }
