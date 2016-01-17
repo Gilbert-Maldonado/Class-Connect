@@ -14,6 +14,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import org.json.JSONArray;
+
 public class Processing
 {
     private String name;
@@ -38,35 +40,32 @@ public class Processing
     {
         for(int i = 0; i < friends.size(); i++)
         {
-            Log.d("Break 1", "Entered Loop");
             String curName = friends.get(i);
-            Log.d("Break 2", "Before ParseQuery " + curName);
             ParseQuery<ParseObject> curQuery = ParseQuery.getQuery("Student");
             curQuery.whereEqualTo("name", curName);
             curQuery.getFirstInBackground(new GetCallback<ParseObject>()
             {
                 public void done(ParseObject object, ParseException e)
                 {
-                    if(e == null)
+                    if (e == null)
                     {
-                        Log.d("Break 3", "Entered e == null");
                         List<String> curList = curClasses;
                         List<String> otherList = object.getList("courses");
                         curList.retainAll(new HashSet<String>(otherList));
 
                         //TESTING CODE ONLY!!! DELETE WHEN DONE
                         ParseObject similar = new ParseObject("SimilarClasses");
-                        for(int j = 0; j < curList.size(); j++)
+                        JSONArray newArray = new JSONArray();
+                        for (int j = 0; j < curList.size(); j++)
                         {
-                            Log.d("courses: ", curList.get(j));
-                            similar.put("class " + j + ": ", curList.get(j));
+                            newArray.put(curList.get(j));
                         }
+                        similar.put("Matched Classes", newArray);
                         similar.saveInBackground();
                         //TESTING CODE ENDS HERE
                     }
                     else
                     {
-                        Log.d("Break 4", "Entered Exception MUST FIX");
                         //Display that the user does not having matching friends/classes
                         //Do not throw exception or else stack will terminate/App crash
                     }
