@@ -25,6 +25,10 @@ public class MasterClass {
     private String currentFriend;
     private String temp15;
     private Map<String, Boolean> map;
+    private String addToGroupName;
+    private String addToGroupID;
+    private String getGroupIDName;
+    private String getGroupIDOutput;
 
     public MasterClass(String facebookID, String name, List<String> friendsList, List<String> courses) {
         this.facebookID = facebookID;
@@ -32,8 +36,12 @@ public class MasterClass {
         this.friendsList = friendsList;
         this.courses = courses;
         counter = 0;
+        getGroupIDOutput = null;
+        getGroupIDName = null;
         currentFriend = null;
         temp15 = null;
+        addToGroupName = null;
+        addToGroupID = null;
         map = new TreeMap<String, Boolean>();
         for(String temp : courses) {
             map.put(temp, false);
@@ -147,4 +155,62 @@ public class MasterClass {
     public Map<String, Boolean> getMap() {
         return map;
     }
+
+    // Input: Name of person, course name, groupID
+    // Output: Find the group by person name and course name and add the ID to it.
+    public void addGroupID(String name, String courseName, String groupID) {
+
+        addToGroupName = name;
+        addToGroupID = groupID;
+        ParseQuery<ParseObject> currentQuery = ParseQuery.getQuery("Classes");
+        currentQuery.whereEqualTo("courseName", courseName);
+        currentQuery.getFirstInBackground(new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                boolean found = false;
+                int count = 0;
+
+                while(!found) {
+                    List<String> temp = object.getList("" + count);
+                    if(temp.contains(addToGroupName)) {
+                        object.put("group" + count, addToGroupID);
+                        object.saveInBackground();
+                        found = true;
+                    }
+                    count++;
+                }
+            }
+        });
+
+
+    }
+
+    // Input: CourseName, Student name
+    // Output: GroupID
+    public String getGroupID(String courseName, String name) {
+
+        getGroupIDName = name;
+        String output = null;
+        getGroupIDOutput = null;
+        ParseQuery<ParseObject> currentQuery = ParseQuery.getQuery("Classes");
+        currentQuery.whereEqualTo("courseName", courseName);
+        currentQuery.getFirstInBackground(new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+
+                boolean found = false;
+                int count = 0;
+
+                while(!found) {
+                    List<String> temp = object.getList("" + count);
+                    if(temp.contains(getGroupIDName)) {
+                        getGroupIDOutput = object.getString("group" + count);
+                        found = true;
+                    }
+                    count++;
+                }
+            }
+        });
+        return getGroupIDOutput;
+    }
+
+
 }
