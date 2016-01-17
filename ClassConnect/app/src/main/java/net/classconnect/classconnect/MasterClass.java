@@ -21,6 +21,7 @@ public class MasterClass {
     private List<String> coursesPlaced;
     private int counter;
     private String currentFriend;
+    private String temp15;
 
     public MasterClass(String facebookID, String name, List<String> friendsList, List<String> courses) {
         this.facebookID = facebookID;
@@ -29,6 +30,7 @@ public class MasterClass {
         this.courses = courses;
         counter = 0;
         currentFriend = null;
+        temp15 = null;
         for(String current : courses) {
             coursesPlaced.add(current);
         }
@@ -74,6 +76,7 @@ public class MasterClass {
                                                 }
                                                 counter++;
                                                 object2.addAllUnique(currentCourseGroup, temp);
+                                                object2.saveInBackground();
                                             }
                                         } else {
                                             //Exception that we are not going to throw lol
@@ -99,14 +102,37 @@ public class MasterClass {
         // Create the class and add the group or just add the group
         // If the size is greater than 0, iterate through coursesPlaced list and create groups with the original student in them
         if(coursesPlaced.size() > 0) {
-            for(i = 0; i < coursesPlaced.size(); i++) {
+            for (i = 0; i < coursesPlaced.size(); i++) {
+                temp15 = coursesPlaced.get(i);
                 // Then create a new group!
-                ParseObject object = new ParseObject("Classes");
-                
-                currentQuery.whereEqualTo("name", currentFriend);
+                ParseQuery<ParseObject> currentQuery = ParseQuery.getQuery("Classes");
+                currentQuery.whereEqualTo("courseName", temp15);
+                currentQuery.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        // If e == null then it exists and we just add a group
+                        if(e == null) {
+                            int current = object.getInt("counter");
+                            List<String> list = new ArrayList<String>();
+                            list.add(name);
+                            object.add("" + current, list);
+                            current++;
+                            object.put("counter", current);
+                            object.saveInBackground();
 
+                        }
+                        else { // Else then we create a class/with counter and then add the group
+                            ParseObject newClass = new ParseObject("Classes");
+                            newClass.put("courseName", temp15);
+                            List<String> temp = new ArrayList<String>();
+                            temp.add(name);
+                            newClass.addAllUnique("0", temp);
+                            newClass.put("counter", 1);
+
+                        }
+                    }
+
+                });
             }
         }
-
     }
 }
