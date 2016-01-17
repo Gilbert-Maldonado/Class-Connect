@@ -51,7 +51,7 @@ public class ClassEnterActivity extends AppCompatActivity {
     private List<String> friends_id_list;
     private Student mStudent;
     private List<String> courses;
-    private ProgressBar spinner_circle;
+    private MaterialDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +127,12 @@ public class ClassEnterActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onPause(){
+        super.onPause();
+        if(progress != null)
+            progress.cancel();
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -144,7 +150,7 @@ public class ClassEnterActivity extends AppCompatActivity {
                         .show();
             }else{
                 makeFacebookAPIcalls();
-                new MaterialDialog.Builder(this)
+                progress = new MaterialDialog.Builder(this)
                         .title("Getting matching classes")
                         .progress(true, 0)
                         .cancelable(false)

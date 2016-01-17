@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="android:Theme.Material.Light">
-        <item name="android:colorAccent">#283593</item>
+        <item name="android:colorAccent">#3b5998</item>
     </style>
     <style name="AppThemeLogin" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
-        <item name="android:colorAccent">#283593</item>
+        <item name="android:colorAccent">#3b5998</item>
     </style>
     <style name="AppThemeCompact" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:colorAccent">#283593</item>
+        <item name="android:colorAccent">#3b5998</item>
     </style>
 </resources>
 
