@@ -15,12 +15,14 @@ public class Processing
     private String name;
     private List<String> friends;
     private ParseObject curObject;
+    private List<String> curClasses;
 
 
     public Processing(String input, ParseObject currentStudent)
     {
         name = input;
         curObject = currentStudent;
+        curClasses = currentStudent.getList("courses");
     }
 
     public void setFriends()
@@ -40,11 +42,14 @@ public class Processing
                 {
                     if(e == null)
                     {
-
+                        List<String> curList = curClasses;
+                        List<String> otherList = object.getList("courses");
+                        curList.retainAll(new HashSet<String>(otherList));
                     }
                     else
                     {
-
+                        //Display that the user does not having matching friends/classes
+                        //Do not throw exception or else stack will terminate/App crash
                     }
                 }
             });
