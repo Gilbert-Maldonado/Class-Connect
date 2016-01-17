@@ -52,12 +52,6 @@ public class Processing
                         List<String> curList = curClasses;
                         List<String> otherList = object.getList("courses");
                         curList.retainAll(new HashSet<String>(otherList));
-
-                        //TESTING CODE ONLY!!! DELETE WHEN DONE
-                        ParseObject similar = new ParseObject("SimilarClasses");
-                        similar.addAllUnique("Matched Classes", curList);
-                        similar.saveInBackground();
-                        //TESTING CODE ENDS HERE
                     }
                     else
                     {
