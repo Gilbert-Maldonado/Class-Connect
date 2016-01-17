@@ -14,7 +14,15 @@ import com.facebook.share.model.AppGroupCreationContent;
 import com.facebook.share.widget.CreateAppGroupDialog;
 import com.facebook.share.widget.JoinAppGroupDialog;
 
+import java.util.List;
+import java.util.Map;
+
 public class CourseListActivity extends AppCompatActivity  {
+
+    static Map<String, List<String>> courseAttendeesMap;
+    static Map<String, Boolean> map;
+    static String facebookID;
+    static String name;
 
     CreateAppGroupDialog createAppGroupDialog;
     CallbackManager callbackManager;

@@ -1,5 +1,7 @@
 package net.classconnect.classconnect;
 
+import android.util.Log;
+
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -9,11 +11,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Gilbert on 1/17/2016.
  */
 public class MasterClass {
+
+
 
     private String facebookID;
     private String name;
@@ -23,7 +29,8 @@ public class MasterClass {
     private int counter;
     private String currentFriend;
     private String temp15;
-    private HashMap<String, List<String>> courseAttendeesMap;
+    private Map<String, List<String>> courseAttendeesMap;
+    private Map<String, Boolean> map;
 
     public MasterClass(String facebookID, String name, List<String> friendsList, List<String> courses) {
         this.facebookID = facebookID;
@@ -33,7 +40,13 @@ public class MasterClass {
         counter = 0;
         currentFriend = null;
         temp15 = null;
-        courseAttendeesMap = new HashMap<String, List<String>>();
+        courseAttendeesMap = new TreeMap<String, List<String>>();
+        map = new TreeMap<String, Boolean>();
+        for(String temp : courses) {
+            map.put(temp, false);
+            courseAttendeesMap.put(temp, null);
+        }
+        coursesPlaced = new ArrayList<>();
         for(String current : courses) {
             coursesPlaced.add(current);
         }
@@ -91,11 +104,8 @@ public class MasterClass {
                                 coursesPlaced.remove(currentValue);
                             }
                         }
-
                     } else {
-                        for (String c : coursesPlaced) {
-                            courseAttendeesMap.put(c, new ArrayList<String>());
-                        }
+
                         //Display that the user does not having matching friends/classes
                         //Do not throw exception or else stack will terminate/App crash
                     }
@@ -118,32 +128,63 @@ public class MasterClass {
                     public void done(ParseObject object, ParseException e) {
                         // If e == null then it exists and we just add a group
                         if(e == null) {
+                            Log.e("MAP - ERROR", "omg i dont even know");
                             int current = object.getInt("counter");
                             List<String> list = new ArrayList<String>();
                             list.add(name);
-                            object.add("" + current, list);
+                            object.add("L" + current, list);
                             current++;
                             object.put("counter", current);
-                            object.saveInBackground();
-
+                            try{object.save();}
+                            catch(ParseException a){
+                                a.printStackTrace();
+                            }
+                            map.put(temp15, true);
+                            courseAttendeesMap.put(temp15, new ArrayList<String>());
                         }
                         else { // Else then we create a class/with counter and then add the group
+                            Log.e("MAP - ERROR2", "omg i dont even know");
                             ParseObject newClass = new ParseObject("Classes");
                             newClass.put("courseName", temp15);
                             List<String> temp = new ArrayList<String>();
                             temp.add(name);
-                            newClass.addAllUnique("0", temp);
+                            newClass.addAllUnique("L0", temp);
                             newClass.put("counter", 1);
-                            newClass.saveInBackground();
+                            try{newClass.save();}
+                            catch(ParseException a){
+                                a.printStackTrace();
+                            }
+                            Log.e("MAP - ERROR!!!!!", "omg i dont even know");
+                            map.put(temp15, true);
+                            courseAttendeesMap.put(temp15, new ArrayList<String>());
                         }
                     }
 
                 });
             }
         }
+        CourseListActivity.courseAttendeesMap = this.courseAttendeesMap;
+        CourseListActivity.map = this.map;
     }
-    public HashMap<String, List<String>> getCourseAttendeesMap() {
+
+    public Map<String, List<String>> getCourseAttendeesMap() {
+        CourseListActivity.courseAttendeesMap = this.courseAttendeesMap;
+        Log.d("MAP1", courseAttendeesMap.toString());
         return courseAttendeesMap;
+    }
+
+    public Map<String, Boolean> getMap() {
+        CourseListActivity.map = this.map;
+        Log.d("MAP1", map.toString());
+        return map;
+    }
+
+    public String getFacebookID() {
+        return facebookID;
+    }
+
+    public String getName() {
+        return name;
     }
 }
 

@@ -2,6 +2,7 @@ package net.classconnect.classconnect;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -207,7 +208,7 @@ public class ClassEnterActivity extends AppCompatActivity {
             @Override
             public void onBatchCompleted(GraphRequestBatch graphRequests) {
                 mStudent = new Student(id, name, courses, friends_id_list);
-                startActivity(new Intent(ClassEnterActivity.this, CourseListActivity.class));
+                new SendData().execute(mStudent);
             }
         });
         batch.executeAsync();
@@ -241,6 +242,30 @@ public class ClassEnterActivity extends AppCompatActivity {
                     }
                 }).show();
         // add a new dialog fragment for class name
+    }
+
+    private class SendData extends AsyncTask<Student, Integer, MasterClass> {
+        protected MasterClass doInBackground(Student... student) {
+            MasterClass mc = new MasterClass(student[0].getFacebookID(), student[0].getName(), student[0].getFriendsList(), student[0].getClasses());
+            mc.getMap();
+            mc.getCourseAttendeesMap();
+            return mc;
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+        }
+
+        protected void onPostExecute(MasterClass result) {
+            CourseListActivity.map = result.getMap();
+            CourseListActivity.courseAttendeesMap = result.getCourseAttendeesMap();
+            CourseListActivity.facebookID = result.getFacebookID();
+            CourseListActivity.name = result.getName();
+            Log.d("MAPS", CourseListActivity.map.toString());
+            Log.d("MAPS", CourseListActivity.courseAttendeesMap.toString());
+
+            startActivity(new Intent(ClassEnterActivity.this, CourseListActivity.class));
+        }
     }
 
 

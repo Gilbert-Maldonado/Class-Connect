@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -82,12 +83,13 @@ public class CollapsingToolbarFragment extends Fragment {
 //        String[] cardTitles = getResources().getStringArray(R.array.card_titles);
 //        String[] cardContents = getResources().getStringArray(R.array.card_contents);
 //        final int length = cardTitles.length;
-        for(int i=0;i<4;i++){
-            cardItemModel = new CardItemModel("test " + i, "", "id", true);
+        Map<String, List<String>> map =  CourseListActivity.courseAttendeesMap;
+        Map<String, Boolean> booleanMap =  CourseListActivity.map;
+
+        for(Map.Entry<String,List<String>> entry : map.entrySet()){
+            cardItemModel = new CardItemModel(entry.getKey(), entry.getValue(), "id", booleanMap.get(entry.getKey()));
             cardItems.add(cardItemModel);
         }
-        cardItemModel = new CardItemModel("test 4", "CLASSMATES", "id", false);
-        cardItems.add(cardItemModel);
     }
 
 }
