@@ -19,27 +19,47 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/card_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:maxLines="1"
-                android:scrollHorizontally="false"
-                android:ellipsize="end"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="24dp"
-                android:paddingBottom="24dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#9E9E9E">
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/card_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="34sp"
+                    android:maxLines="1"
+                    android:scrollHorizontally="false"
+                    android:ellipsize="end"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="10dp"
+                    android:text="TEXT"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primary_text_default_material_dark"/>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/card_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:paddingLeft="16dp"
+                android:paddingTop="16dp"
+                android:paddingLeft="32dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="24dp"/>
+
+            <Button
+                android:id="@+id/add_facebook_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:textAllCaps="true"
+                android:text="join"
+                android:layout_gravity="right|end"
+                />
 
         </LinearLayout>
 

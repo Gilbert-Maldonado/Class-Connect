@@ -36,6 +36,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("user_friends");
+        loginButton.setReadPermissions("user_managed_groups");
         callbackManager = CallbackManager.Factory.create();
         Parse.initialize(this);
 

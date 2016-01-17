@@ -58,6 +58,7 @@ public class ClassEnterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_enter);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        myToolbar.setTitleTextColor(0xFFFFFFFF);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(getString(R.string.courses));
         mRecyclerView = (RecyclerView) findViewById(R.id.class_list);
@@ -186,7 +187,7 @@ public class ClassEnterActivity extends AppCompatActivity {
                                 try{
                                     friends_id_list = new ArrayList<String>(jsonArray.length());
                                     for(int i = 0; i < jsonArray.length(); i++){
-                                        friends_id_list.add(jsonArray.getJSONObject(i).getString("id"));
+                                        friends_id_list.add(jsonArray.getJSONObject(i).getString("name"));
                                     }
                                 }catch(JSONException e){
                                     e.printStackTrace();

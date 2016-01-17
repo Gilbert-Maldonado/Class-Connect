@@ -6,6 +6,7 @@
     </style>
 
     <style name="AppThemeLogin" parent="android:Theme.Holo.Light.NoActionBar.Fullscreen">
+
     </style>
 
     <style name="AppThemeCompact" parent="Theme.AppCompat.Light.NoActionBar">

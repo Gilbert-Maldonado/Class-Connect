@@ -71,18 +71,23 @@ public class CollapsingToolbarFragment extends Fragment {
     private void setupRecyclerView(){
         recyclerView.setLayoutManager(new LinearLayoutManager(appCompatActivity));
         recyclerView.setHasFixedSize(true);
-//        initializeCardItemList();
-        recyclerView.setAdapter(new RecyclerAdapterToolbar(cardItems));
+        initializeCardItemList();
+        RecyclerAdapterToolbar adapter = new RecyclerAdapterToolbar(cardItems);
+        adapter.setActivity((CourseListActivity) getActivity());
+        recyclerView.setAdapter(adapter);
     }
 
     private void initializeCardItemList(){
-//        CardItemModel cardItemModel;
+        CardItemModel cardItemModel;
 //        String[] cardTitles = getResources().getStringArray(R.array.card_titles);
 //        String[] cardContents = getResources().getStringArray(R.array.card_contents);
 //        final int length = cardTitles.length;
-//        for(int i=0;i<length;i++){
-//            cardItemModel = new CardItemModel(cardTitles[i],cardContents[i]);
-//            cardItems.add(cardItemModel);
-//        }
+        for(int i=0;i<4;i++){
+            cardItemModel = new CardItemModel("test " + i, "", "id", true);
+            cardItems.add(cardItemModel);
+        }
+        cardItemModel = new CardItemModel("test 4", "CLASSMATES", "id", false);
+        cardItems.add(cardItemModel);
     }
+
 }
