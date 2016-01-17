@@ -55,12 +55,7 @@ public class Processing
 
                         //TESTING CODE ONLY!!! DELETE WHEN DONE
                         ParseObject similar = new ParseObject("SimilarClasses");
-                        JSONArray newArray = new JSONArray();
-                        for (int j = 0; j < curList.size(); j++)
-                        {
-                            newArray.put(curList.get(j));
-                        }
-                        similar.put("Matched Classes", newArray);
+                        similar.addAllUnique("Matched Classes", curList);
                         similar.saveInBackground();
                         //TESTING CODE ENDS HERE
                     }
