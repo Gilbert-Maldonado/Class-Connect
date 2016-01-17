@@ -8,6 +8,8 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Gilbert on 1/17/2016.
@@ -22,6 +24,7 @@ public class MasterClass {
     private int counter;
     private String currentFriend;
     private String temp15;
+    private Map<String, Boolean> map;
 
     public MasterClass(String facebookID, String name, List<String> friendsList, List<String> courses) {
         this.facebookID = facebookID;
@@ -31,6 +34,10 @@ public class MasterClass {
         counter = 0;
         currentFriend = null;
         temp15 = null;
+        map = new TreeMap<String, Boolean>();
+        for(String temp : courses) {
+            map.put(temp, false);
+        }
         for(String current : courses) {
             coursesPlaced.add(current);
         }
@@ -128,11 +135,16 @@ public class MasterClass {
                             newClass.addAllUnique("0", temp);
                             newClass.put("counter", 1);
                             newClass.saveInBackground();
+                            map.put(temp15, true);
                         }
                     }
 
                 });
             }
         }
+    }
+
+    public Map<String, Boolean> getMap() {
+        return map;
     }
 }
