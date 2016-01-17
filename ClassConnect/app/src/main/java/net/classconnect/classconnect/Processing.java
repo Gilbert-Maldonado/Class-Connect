@@ -7,6 +7,8 @@ package net.classconnect.classconnect;
 import android.util.Log;
 
 import java.util.*;
+
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -40,7 +42,8 @@ public class Processing
             String curName = friends.get(i);
             Log.d("Break 2", "Before ParseQuery " + curName);
             ParseQuery<ParseObject> curQuery = ParseQuery.getQuery("Student");
-            curQuery.getInBackground(curName, new GetCallback<ParseObject>()
+            curQuery.whereEqualTo("name", curName);
+            curQuery.getFirstInBackground(new GetCallback<ParseObject>()
             {
                 public void done(ParseObject object, ParseException e)
                 {
