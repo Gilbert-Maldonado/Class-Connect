@@ -5,7 +5,7 @@
     <!-- To access facebookAPIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- To access parse-->
+    <!-- To access parse -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!--
@@ -45,6 +45,16 @@
             <!--android:value="@string/parse_client_key" />-->
 
         <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <!-- <meta-data -->
+        <!-- android:name="com.parse.APPLICATION_ID" -->
+        <!-- android:value="@string/parse_app_id" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="com.parse.CLIENT_KEY" -->
+        <!-- android:value="@string/parse_client_key" /> -->
+
+        <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="k7YVA7DtgScU7yEaiHgRwGNJchMJORGGVvCMls4y" />
         <meta-data
@@ -55,10 +65,15 @@
             android:name=".ClassEnterActivity"
             android:label="@string/title_activity_class_enter"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppThemeCompact">
+            android:theme="@style/AppThemeCompact" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.classconnect.classconnect.MainActivity" />
+        </activity>
+        <activity
+            android:name=".CourseListActivity"
+            android:label="@string/title_activity_course_list"
+            android:theme="@style/AppThemeCompact">
         </activity>
     </application>
 

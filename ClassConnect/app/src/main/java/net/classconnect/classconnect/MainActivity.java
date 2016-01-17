@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
@@ -36,12 +38,7 @@ public class MainActivity extends Activity {
         loginButton.setReadPermissions("user_friends");
         callbackManager = CallbackManager.Factory.create();
         Parse.initialize(this);
-        List<String> classes = new ArrayList<String>();
-        classes.addAll(Arrays.asList("Vishik The Devil", "Mike Scott"));
-        List<String> friends = new ArrayList<String>();
-        friends.addAll(Arrays.asList("cindy", "yimmie"));
-        Student gilly = new Student("hello", "gilly", classes, friends);
-        gilly.parse();
+
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override

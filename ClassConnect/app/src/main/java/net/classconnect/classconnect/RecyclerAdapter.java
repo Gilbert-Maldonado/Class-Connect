@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -58,9 +59,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return pos;
     }
 
-    public String[] getFinalData(){
-        String[] finalItems = new String[mItemList.size()];
-        return mItemList.toArray(finalItems);
+    public ArrayList<String> getFinalData(){
+        return new ArrayList<String>(mItemList);
     }
 }
 

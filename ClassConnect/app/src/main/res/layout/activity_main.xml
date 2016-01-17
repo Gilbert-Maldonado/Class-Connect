@@ -1,12 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/collaborate"
     tools:context="net.classconnect.classconnect.MainActivity">
+    <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
+    <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
+    <!--android:paddingTop="@dimen/activity_vertical_margin"-->
+    <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
 
     <TextView
         android:id="@+id/appTitle"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:fontFamily="sans-serif-light"
+        android:fontFamily="sans-serif-condense"
         android:textStyle="normal"
         android:textSize="16sp"
         android:paddingTop="@dimen/fb_button_padding"
@@ -53,5 +53,7 @@
         android:paddingRight="@dimen/fb_button_padding"
         android:layout_marginTop="@dimen/fb_button_vertical_margin"
         android:elevation="4dp"/>
+
+
 
 </RelativeLayout>
