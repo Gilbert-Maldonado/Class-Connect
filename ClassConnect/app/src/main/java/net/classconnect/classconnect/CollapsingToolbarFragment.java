@@ -83,8 +83,8 @@ public class CollapsingToolbarFragment extends Fragment {
 //        String[] cardTitles = getResources().getStringArray(R.array.card_titles);
 //        String[] cardContents = getResources().getStringArray(R.array.card_contents);
 //        final int length = cardTitles.length;
-        Map<String, List<String>> map =  CourseListActivity.courseAttendeesMap;
-        Map<String, Boolean> booleanMap =  CourseListActivity.map;
+        Map<String, List<String>> map =  CourseListActivity.LcourseAttendeesMap;
+        Map<String, Boolean> booleanMap =  CourseListActivity.Lmap;
 
         for(Map.Entry<String,List<String>> entry : map.entrySet()){
             cardItemModel = new CardItemModel(entry.getKey(), entry.getValue(), "id", booleanMap.get(entry.getKey()));

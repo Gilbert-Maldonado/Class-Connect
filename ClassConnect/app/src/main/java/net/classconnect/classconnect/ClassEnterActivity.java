@@ -143,6 +143,7 @@ public class ClassEnterActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_done) {
             courses = mRecyclerAdapter.getFinalData();
+            Log.d("HELP HELP", courses.toString());
             if (courses.isEmpty()){
                 new MaterialDialog.Builder(this)
                         .title("You have no courses")
@@ -257,12 +258,12 @@ public class ClassEnterActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(MasterClass result) {
-            CourseListActivity.map = result.getMap();
-            CourseListActivity.courseAttendeesMap = result.getCourseAttendeesMap();
+            CourseListActivity.Lmap = result.getMap();
+            CourseListActivity.LcourseAttendeesMap = result.getCourseAttendeesMap();
             CourseListActivity.facebookID = result.getFacebookID();
             CourseListActivity.name = result.getName();
-            Log.d("MAPS", CourseListActivity.map.toString());
-            Log.d("MAPS", CourseListActivity.courseAttendeesMap.toString());
+            Log.d("MAPS", CourseListActivity.Lmap.toString());
+            Log.d("MAPS", CourseListActivity.LcourseAttendeesMap.toString());
 
             startActivity(new Intent(ClassEnterActivity.this, CourseListActivity.class));
         }

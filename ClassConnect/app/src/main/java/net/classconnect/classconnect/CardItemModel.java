@@ -14,13 +14,16 @@ public class CardItemModel {
 
     public CardItemModel(String title, List<String> content, String id, boolean empty) {
         this.title = title;
+        this.empty = true;
         StringBuilder connected = new StringBuilder();
-        for(String s: content){
-            connected.append(s + "\n");
+        if(!empty && content != null ){
+            for(String s: content){
+                connected.append(s + "\n");
+            }
+            this.empty = false;
         }
         this.content = connected.toString();
         this.id = id;
-        this.empty = empty;
     }
     public CardItemModel(String title, String content, String id, boolean empty) {
         this.title = title;

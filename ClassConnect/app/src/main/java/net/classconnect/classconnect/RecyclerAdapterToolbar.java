@@ -47,7 +47,7 @@ public class RecyclerAdapterToolbar extends RecyclerView.Adapter<RecyclerAdapter
                 if(needToCreate){
                     activity.createGroup(className, "A group for " + className + ".");
                 }else{
-                    activity.addUser(cardItems.get(position).id);
+                    activity.addUser(className);
                 }
             }
         });

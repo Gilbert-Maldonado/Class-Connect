@@ -19,11 +19,12 @@ import java.util.Map;
 
 public class CourseListActivity extends AppCompatActivity  {
 
-    static Map<String, List<String>> courseAttendeesMap;
-    static Map<String, Boolean> map;
+    static Map<String, List<String>> LcourseAttendeesMap;
+    static Map<String, Boolean> Lmap;
     static String facebookID;
     static String name;
 
+    private String mGroupname;
     CreateAppGroupDialog createAppGroupDialog;
     CallbackManager callbackManager;
 
@@ -40,7 +41,9 @@ public class CourseListActivity extends AppCompatActivity  {
         createAppGroupDialog.registerCallback(callbackManager, new FacebookCallback<CreateAppGroupDialog.Result>() {
             public void onSuccess(CreateAppGroupDialog.Result result) {
                 String id = result.getId();
-                Log.d("GROUP", id);
+                if(mGroupname != null)
+                    MasterClass.addGroupID(name, mGroupname, id);
+                mGroupname = null;
             }
 
             public void onCancel() {
@@ -80,6 +83,7 @@ public class CourseListActivity extends AppCompatActivity  {
     }
 
     public void createGroup(String groupname, String description){
+        mGroupname = groupname;
         AppGroupCreationContent content = new AppGroupCreationContent.Builder()
                 .setName(groupname)
                 .setDescription(description)
@@ -88,8 +92,8 @@ public class CourseListActivity extends AppCompatActivity  {
         createAppGroupDialog.show(content);
     }
 
-    public void addUser(String group_id){
-        JoinAppGroupDialog.show(this, group_id);
+    public void addUser(String groupname){
+        JoinAppGroupDialog.show(this, MasterClass.getGroupID(groupname, name));
     }
 
 }

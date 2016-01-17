@@ -55,8 +55,8 @@ public class Student
         ParseObject studentObj = new ParseObject("Student");
         studentObj.put("name", name);
         studentObj.put("facebookID", facebookID);
-        studentObj.addAllUnique("courses", classes);
-        studentObj.addAllUnique("friendsList", friendsList);
+        studentObj.addAll("courses", classes);
+        studentObj.addAll("friendsList", friendsList);
         try{studentObj.save();}
         catch(ParseException a){
             a.printStackTrace();
